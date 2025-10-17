@@ -1,0 +1,27 @@
+{
+  "fecha_ejecucion": "2025-09-13T19:33:03.401099",
+  "autor": "Miguel Angel Percudani",
+  "version_uat": "1.0",
+  "constantes_fisicas": {
+    "hbar": 1.0545718e-34,
+    "c": 300000000.0,
+    "G": 6.6743e-11,
+    "k_B": 1.380649e-23,
+    "gamma_lqg": 0.2375
+  },
+  "parametros_simulacion": {
+    "f_min": 1e-50,
+    "f_max": 1e+45,
+    "num_puntos": 2000,
+    "alpha_original": 5000000000.0,
+    "alpha_ajustado": 5e-06
+  },
+  "resultados_principales": {
+    "masa_planck": 2.1771875512343738e-08,
+    "temperatura_std": 5.620410528939718e+30,
+    "rango_transicion": [
+      2097.301321111163,
+      498710.9735477894
+    ]
+  }
+}

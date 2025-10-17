@@ -1,0 +1,37 @@
+2025-09-14 16:18:43,951 - INFO - === UAT SIMULATION START ===
+2025-09-14 16:18:43,952 - INFO - Results directories created
+2025-09-14 16:18:43,954 - INFO - Physical constants defined
+2025-09-14 16:18:43,957 - INFO - Planck mass: 2.177e-08 kg
+2025-09-14 16:18:43,959 - INFO - Planck length: 1.615e-35 m
+2025-09-14 16:18:43,963 - INFO - Schwarzschild radius: 3.229e-35 m
+2025-09-14 16:18:43,968 - INFO - Original alpha: 5.000e+09
+2025-09-14 16:18:43,970 - INFO - Optimized alpha: 5.000e-06
+2025-09-14 16:18:43,976 - INFO - Standard Hawking temperature: 5.620e+30 K
+2025-09-14 16:18:43,979 - INFO - LQG-corrected Hawking temperature: 5.620e+30 K
+2025-09-14 16:18:43,984 - INFO - Frequency range: 1.0e-50 Hz to 1.0e+45 Hz
+2025-09-14 16:18:43,987 - INFO - Number of data points: 2000
+2025-09-14 16:18:43,988 - INFO - Modification calculations completed
+2025-09-14 16:18:43,990 - INFO - Transition region found: 2.097e+03 Hz to 4.987e+05 Hz
+2025-09-14 16:18:44,024 - INFO - Complete dataset saved to uat_results/complete_dataset.csv
+2025-09-14 16:18:44,032 - INFO - Key points saved to uat_results/key_points.csv
+
+2025-09-14 16:18:47,873 - INFO - Plots generated and saved
+2025-09-14 16:18:47,939 - INFO - Metadata saved to uat_results/experiment_metadata.json
+2025-09-14 16:18:47,943 - INFO - === SIMULATION SUCCESSFULLY COMPLETED ===
+2025-09-14 16:18:47,945 - INFO - All files saved in 'uat_results' directory
+2025-09-14 16:18:47,946 - INFO - Ready for peer review and experimental reproduction
+=== FINAL RESULTS ===
+• Planck mass: 2.177e-08 kg
+• Standard Hawking temperature: 5.620e+30 K
+• Optimized alpha parameter: 5.000e-06
+• Transition region: 2.097e+03 Hz to 4.987e+05 Hz
+• Transition bandwidth: 4.966e+05 Hz
+
+=== KEY POINTS ANALYSIS ===
+f = 1.0e+45 Hz → Factor = 2.000000 → T = 1.124e+31 K
+f = 9.6e+29 Hz → Factor = 2.000000 → T = 1.124e+31 K
+f = 9.6e+05 Hz → Factor = 1.999867 → T = 1.124e+31 K
+f = 9.7e+02 Hz → Factor = 1.004875 → T = 5.648e+30 K
+f = 9.9e-01 Hz → Factor = 1.000005 → T = 5.620e+30 K
+f = 9.7e-21 Hz → Factor = 1.000000 → T = 5.620e+30 K
+f = 9.5e-41 Hz → Factor = 1.000000 → T = 5.620e+30 K

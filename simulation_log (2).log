@@ -1,0 +1,71 @@
+2025-09-14 16:18:43,951 - INFO - === UAT SIMULATION START ===
+2025-09-14 16:18:43,952 - INFO - Results directories created
+2025-09-14 16:18:43,954 - INFO - Physical constants defined
+2025-09-14 16:18:43,957 - INFO - Planck mass: 2.177e-08 kg
+2025-09-14 16:18:43,959 - INFO - Planck length: 1.615e-35 m
+2025-09-14 16:18:43,963 - INFO - Schwarzschild radius: 3.229e-35 m
+2025-09-14 16:18:43,968 - INFO - Original alpha: 5.000e+09
+2025-09-14 16:18:43,970 - INFO - Optimized alpha: 5.000e-06
+2025-09-14 16:18:43,976 - INFO - Standard Hawking temperature: 5.620e+30 K
+2025-09-14 16:18:43,979 - INFO - LQG-corrected Hawking temperature: 5.620e+30 K
+2025-09-14 16:18:43,984 - INFO - Frequency range: 1.0e-50 Hz to 1.0e+45 Hz
+2025-09-14 16:18:43,987 - INFO - Number of data points: 2000
+2025-09-14 16:18:43,988 - INFO - Modification calculations completed
+2025-09-14 16:18:43,990 - INFO - Transition region found: 2.097e+03 Hz to 4.987e+05 Hz
+2025-09-14 16:18:44,024 - INFO - Complete dataset saved to uat_results/complete_dataset.csv
+2025-09-14 16:18:44,032 - INFO - Key points saved to uat_results/key_points.csv
+2025-09-14 16:18:47,873 - INFO - Plots generated and saved
+2025-09-14 16:18:47,939 - INFO - Metadata saved to uat_results/experiment_metadata.json
+2025-09-14 16:18:47,943 - INFO - === SIMULATION SUCCESSFULLY COMPLETED ===
+2025-09-14 16:18:47,945 - INFO - All files saved in 'uat_results' directory
+2025-09-14 16:18:47,946 - INFO - Ready for peer review and experimental reproduction
+2025-09-14 16:30:50,792 - INFO - === INICIO DE SIMULACIÓN UAT ===
+2025-09-14 16:30:50,792 - INFO - Directorios de resultados creados
+2025-09-14 16:30:50,794 - INFO - Constantes físicas definidas
+2025-09-14 16:30:50,796 - INFO - Masa de Planck: 2.177e-08 kg
+2025-09-14 16:30:50,797 - INFO - Longitud de Planck: 1.615e-35 m
+2025-09-14 16:30:50,798 - INFO - Radio de Schwarzschild: 3.229e-35 m
+2025-09-14 16:30:50,799 - INFO - Alpha original: 5.000e+09
+2025-09-14 16:30:50,800 - INFO - Alpha ajustado: 5.000e-06
+2025-09-14 16:30:50,802 - INFO - Temperatura Hawking estándar: 5.620e+30 K
+2025-09-14 16:30:50,803 - INFO - Temperatura Hawking LQG: 5.620e+30 K
+2025-09-14 16:30:50,804 - INFO - Rango de frecuencias: 1.0e-50 Hz a 1.0e+45 Hz
+2025-09-14 16:30:50,805 - INFO - Número de puntos: 2000
+2025-09-14 16:30:50,807 - INFO - Cálculos de modificación completados
+2025-09-14 16:30:50,809 - INFO - Transición encontrada: 2.097e+03 Hz a 4.987e+05 Hz
+2025-09-14 16:30:50,824 - INFO - Datos completos guardados en resultados_uat/datos_completos.csv
+2025-09-14 16:30:50,838 - INFO - Puntos clave guardados en resultados_uat/puntos_clave.csv
+2025-09-14 16:30:54,793 - INFO - Gráficos generados y guardados
+2025-09-14 16:30:54,799 - INFO - Metadatos guardados en resultados_uat/metadata.json
+2025-09-14 16:30:54,802 - INFO - === SIMULACIÓN COMPLETADA EXITOSAMENTE ===
+2025-09-14 16:30:54,804 - INFO - Todos los archivos guardados en la carpeta 'resultados_uat'
+2025-09-14 16:30:54,805 - INFO - Listo para revisión y reproducción experimental
+2025-09-14 16:42:27,107 - INFO - Longitud de Planck (l_planck) = 1.615e-35 m
+2025-09-14 16:42:27,109 - INFO - Radio de Schwarzschild (r_s) = 1.483e-15 m
+2025-09-14 16:42:27,122 - INFO - Rango de frecuencias definido: f_min = 1.0e-10 Hz, f_max = 1.0e+20 Hz
+2025-09-14 16:42:27,124 - INFO - Número de puntos de muestreo: 1000
+2025-09-14 16:42:27,127 - INFO - Temperatura de Hawking estándar calculada: T_H = 1.229e+11 K
+2025-09-14 16:42:27,134 - INFO - Temperatura modificada: rango = [2.459e+11, 1.229e+41] K
+2025-09-14 17:20:30,049 - ERROR - No such comm target registered: jupyter.widget.control
+2025-09-14 17:20:30,058 - WARNING - No such comm: a593c4a1-26e8-4316-9b92-94633cc20eca
+2025-09-15 00:05:35,902 - INFO - === UAT SIMULATION START ===
+2025-09-15 00:05:35,903 - INFO - Results directories created
+2025-09-15 00:05:35,905 - INFO - Physical constants defined
+2025-09-15 00:05:35,908 - INFO - Planck mass: 2.177e-08 kg
+2025-09-15 00:05:35,909 - INFO - Planck length: 1.615e-35 m
+2025-09-15 00:05:35,911 - INFO - Schwarzschild radius: 3.229e-35 m
+2025-09-15 00:05:35,913 - INFO - Original alpha: 5.000e+09
+2025-09-15 00:05:35,914 - INFO - Optimized alpha: 5.000e-06
+2025-09-15 00:05:35,918 - INFO - Standard Hawking temperature: 5.620e+30 K
+2025-09-15 00:05:35,923 - INFO - LQG-corrected Hawking temperature: 5.620e+30 K
+2025-09-15 00:05:35,924 - INFO - Frequency range: 1.0e-50 Hz to 1.0e+45 Hz
+2025-09-15 00:05:35,926 - INFO - Number of data points: 2000
+2025-09-15 00:05:35,927 - INFO - Modification calculations completed
+2025-09-15 00:05:35,929 - INFO - Transition region found: 2.097e+03 Hz to 4.987e+05 Hz
+2025-09-15 00:05:35,956 - INFO - Complete dataset saved to uat_results/complete_dataset.csv
+2025-09-15 00:05:35,961 - INFO - Key points saved to uat_results/key_points.csv
+2025-09-15 00:05:39,647 - INFO - Plots generated and saved
+2025-09-15 00:05:39,652 - INFO - Metadata saved to uat_results/experiment_metadata.json
+2025-09-15 00:05:39,655 - INFO - === SIMULATION SUCCESSFULLY COMPLETED ===
+2025-09-15 00:05:39,658 - INFO - All files saved in 'uat_results' directory
+2025-09-15 00:05:39,660 - INFO - Ready for peer review and experimental reproduction
