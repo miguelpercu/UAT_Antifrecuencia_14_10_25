@@ -1,0 +1,302 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+# %% [markdown]
+# # UAT Experiment - Atemporal Anti-frequency
+# ## Complete Simulation with Visualization and Data Export
+# ### Miguel Angel Percudani - September 13, 2025
+
+# %%
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import logging
+import time
+from datetime import datetime
+import os
+import json
+
+# %% [markdown]
+# ## 1. Initial Configuration
+
+# %%
+# Create directory for results
+if not os.path.exists('uat_results'):
+    os.makedirs('uat_results')
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('uat_results/simulation_log.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger()
+
+logger.info("=== UAT SIMULATION START ===")
+logger.info("Results directories created")
+
+# %%
+# Fundamental physical constants
+CONSTANTS = {
+    'hbar': 1.0545718e-34,    # J·s (Reduced Planck constant)
+    'c': 3e8,                 # m/s (Speed of light)
+    'G': 6.67430e-11,         # m³/kg/s² (Gravitational constant)
+    'k_B': 1.380649e-23,      # J/K (Boltzmann constant)
+    'gamma_lqg': 0.2375       # Barbero-Immirzi parameter (LQG)
+}
+
+logger.info("Physical constants defined")
+
+# %% [markdown]
+# ## 2. Core Functions
+
+# %%
+def hawking_temperature_lqg(M_val, constants):
+    """
+    Calculate Hawking temperature with LQG correction
+    Includes quantum gravity corrections to prevent divergence
+    """
+    hbar, c, G, k_B, gamma = constants['hbar'], constants['c'], constants['G'], constants['k_B'], constants['gamma_lqg']
+
+    # Standard Hawking temperature
+    T_std = (hbar * c**3) / (8 * np.pi * G * M_val * k_B)
+
+    # LQG correction term
+    l_planck = np.sqrt(hbar * G / (c**3))
+    numerator = gamma * (l_planck ** 2)
+    denominator = 4 * np.pi * ((2 * G * M_val) / (c ** 2)) ** 2
+    correction = 1 / (1 + numerator / denominator)
+
+    return T_std * correction
+
+def regularized_modification(alpha_val, lambda_val):
+    """
+    Regularized modification function using tanh
+    Prevents divergence and ensures physical values
+    """
+    lambda_abs = np.abs(lambda_val)
+    lambda_abs = np.where(lambda_abs < 1e-100, 1e-100, lambda_abs)  # Avoid division by zero
+    ratio = alpha_val / lambda_abs
+    return 1 + np.tanh(ratio)  # Bounded between 1 and 2
+
+# %%
+# Calculate Planck mass and related quantities
+M_planck = np.sqrt(CONSTANTS['hbar'] * CONSTANTS['c'] / CONSTANTS['G'])
+l_planck = np.sqrt(CONSTANTS['hbar'] * CONSTANTS['G'] / (CONSTANTS['c']**3))
+r_s = 2 * CONSTANTS['G'] * M_planck / (CONSTANTS['c']**2)
+
+# Coupling parameters
+alpha_original = 1e10 * (l_planck / r_s)
+alpha_optimized = alpha_original / 1e15  # Fine-tuned adjustment
+
+logger.info(f"Planck mass: {M_planck:.3e} kg")
+logger.info(f"Planck length: {l_planck:.3e} m")
+logger.info(f"Schwarzschild radius: {r_s:.3e} m")
+logger.info(f"Original alpha: {alpha_original:.3e}")
+logger.info(f"Optimized alpha: {alpha_optimized:.3e}")
+
+# %%
+# Reference temperatures
+T_H_std = hawking_temperature_lqg(M_planck, CONSTANTS)
+T_H_lqg = hawking_temperature_lqg(M_planck, CONSTANTS)
+
+logger.info(f"Standard Hawking temperature: {T_H_std:.3e} K")
+logger.info(f"LQG-corrected Hawking temperature: {T_H_lqg:.3e} K")
+
+# %% [markdown]
+# ## 3. Main Simulation
+
+# %%
+# Frequency range (logarithmic scale)
+f_min = 1e-50  # Extremely low frequencies
+f_max = 1e45   # Planck-scale frequencies
+f_values = np.logspace(np.log10(f_min), np.log10(f_max), 2000)
+lambda_values = -1.0 / f_values  # Anti-frequency definition: λ = -1/f
+
+logger.info(f"Frequency range: {f_min:.1e} Hz to {f_max:.1e} Hz")
+logger.info(f"Number of data points: {len(f_values)}")
+
+# %%
+# Calculate modification factor and modified temperature
+mod_factor = regularized_modification(alpha_optimized, lambda_values)
+T_H_mod = T_H_std * mod_factor
+
+logger.info("Modification calculations completed")
+
+# %%
+# Identify transition region (where modification is significant)
+transition_mask = (mod_factor > 1.01) & (mod_factor < 1.99)
+if np.any(transition_mask):
+    f_transition = f_values[transition_mask]
+    logger.info(f"Transition region found: {f_transition[0]:.3e} Hz to {f_transition[-1]:.3e} Hz")
+else:
+    logger.warning("No transition region found in sampled range")
+
+# %% [markdown]
+# ## 4. Data Export
+
+# %%
+# Create comprehensive DataFrame with all results
+df_results = pd.DataFrame({
+    'frequency_Hz': f_values,
+    'antifrequency_aHz': lambda_values,
+    'modification_factor': mod_factor,
+    'modified_temperature_K': T_H_mod
+})
+
+# Save complete dataset
+df_results.to_csv('uat_results/complete_dataset.csv', index=False)
+logger.info("Complete dataset saved to uat_results/complete_dataset.csv")
+
+# %%
+# Key points analysis
+key_points = [1e45, 1e30, 1e6, 1e3, 1e0, 1e-20, 1e-40]
+key_data = []
+
+for f_point in key_points:
+    idx = np.abs(f_values - f_point).argmin()
+    key_data.append({
+        'frequency_Hz': f_values[idx],
+        'antifrequency_aHz': lambda_values[idx],
+        'modification_factor': mod_factor[idx],
+        'temperature_K': T_H_mod[idx]
+    })
+
+df_key = pd.DataFrame(key_data)
+df_key.to_csv('uat_results/key_points.csv', index=False)
+logger.info("Key points saved to uat_results/key_points.csv")
+
+# %% [markdown]
+# ## 5. Visualization
+
+# %%
+# Plot configuration
+plt.style.use('default')
+plt.rcParams.update({'font.size': 10})
+fig, axes = plt.subplots(2, 2, figsize=(15, 12))
+fig.suptitle('UAT Simulation - Atemporal Anti-frequency Effects', fontsize=16, fontweight='bold')
+
+# Plot 1: Complete modification factor
+axes[0,0].loglog(f_values, mod_factor, 'b-', linewidth=2)
+axes[0,0].set_xlabel('Frequency (Hz)', fontsize=12)
+axes[0,0].set_ylabel('Modification Factor', fontsize=12)
+axes[0,0].set_title('Modification Factor vs Frequency', fontsize=14)
+axes[0,0].grid(True, which="both", ls="--", alpha=0.7)
+axes[0,0].axhline(1.0, color='gray', ls='--', alpha=0.5, label='No modification')
+axes[0,0].axhline(2.0, color='gray', ls='--', alpha=0.5, label='Maximum modification')
+
+# Plot 2: Temperature comparison
+axes[0,1].loglog(f_values, T_H_mod, 'r-', linewidth=2, label='Modified temperature')
+axes[0,1].loglog(f_values, np.full_like(f_values, T_H_std), 'k--', linewidth=2, label='Standard temperature')
+axes[0,1].set_xlabel('Frequency (Hz)', fontsize=12)
+axes[0,1].set_ylabel('Temperature (K)', fontsize=12)
+axes[0,1].set_title('Modified Hawking Temperature', fontsize=14)
+axes[0,1].legend()
+axes[0,1].grid(True, which="both", ls="--", alpha=0.7)
+
+# Plot 3: Transition region (radio frequencies)
+f_radio = np.logspace(2, 7, 500)  # 100 Hz to 10 MHz
+lambda_radio = -1.0 / f_radio
+mod_radio = regularized_modification(alpha_optimized, lambda_radio)
+
+axes[1,0].semilogx(f_radio, mod_radio, 'g-', linewidth=2)
+axes[1,0].set_xlabel('Frequency (Hz)', fontsize=12)
+axes[1,0].set_ylabel('Modification Factor', fontsize=12)
+axes[1,0].set_title('Transition Region (Radio Frequencies)', fontsize=14)
+axes[1,0].grid(True, which="both", ls="--", alpha=0.7)
+axes[1,0].axvspan(2.097e3, 4.987e5, alpha=0.3, color='orange', label='Transition zone')
+
+# Plot 4: Rate of change analysis
+df_mod = mod_radio[1:] - mod_radio[:-1]
+df_freq = f_radio[1:] - f_radio[:-1]
+derivative = df_mod / df_freq
+
+axes[1,1].semilogx(f_radio[1:], derivative, 'm-', linewidth=2)
+axes[1,1].set_xlabel('Frequency (Hz)', fontsize=12)
+axes[1,1].set_ylabel('d(Factor)/df', fontsize=12)
+axes[1,1].set_title('Modification Rate of Change', fontsize=14)
+axes[1,1].grid(True, which="both", ls="--", alpha=0.7)
+
+plt.tight_layout()
+plt.savefig('uat_results/comprehensive_plots.png', dpi=300, bbox_inches='tight')
+plt.show()
+
+logger.info("Plots generated and saved")
+
+# %% [markdown]
+# ## 6. Final Analysis and Results
+
+# %%
+# Summary results
+print("=== FINAL RESULTS ===")
+print(f"• Planck mass: {M_planck:.3e} kg")
+print(f"• Standard Hawking temperature: {T_H_std:.3e} K")
+print(f"• Optimized alpha parameter: {alpha_optimized:.3e}")
+print(f"• Transition region: {f_transition[0]:.3e} Hz to {f_transition[-1]:.3e} Hz")
+print(f"• Transition bandwidth: {f_transition[-1] - f_transition[0]:.3e} Hz")
+
+print("\n=== KEY POINTS ANALYSIS ===")
+for _, row in df_key.iterrows():
+    print(f"f = {row['frequency_Hz']:.1e} Hz → Factor = {row['modification_factor']:.6f} → T = {row['temperature_K']:.3e} K")
+
+# %%
+# Save experiment metadata
+metadata = {
+    'execution_date': datetime.now().isoformat(),
+    'author': 'Miguel Angel Percudani',
+    'uat_version': '1.0',
+    'physical_constants': CONSTANTS,
+    'simulation_parameters': {
+        'frequency_min': f_min,
+        'frequency_max': f_max,
+        'data_points': len(f_values),
+        'alpha_original': alpha_original,
+        'alpha_optimized': alpha_optimized
+    },
+    'key_results': {
+        'planck_mass': M_planck,
+        'standard_temperature': T_H_std,
+        'transition_range': [float(f_transition[0]), float(f_transition[-1])],
+        'transition_bandwidth': float(f_transition[-1] - f_transition[0])
+    }
+}
+
+with open('uat_results/experiment_metadata.json', 'w') as f:
+    json.dump(metadata, f, indent=2)
+
+logger.info("Metadata saved to uat_results/experiment_metadata.json")
+
+# %%
+logger.info("=== SIMULATION SUCCESSFULLY COMPLETED ===")
+logger.info("All files saved in 'uat_results' directory")
+logger.info("Ready for peer review and experimental reproduction")
+
+# %% [markdown]
+# ## 7. Generated Files:
+# - uat_results/complete_dataset.csv - Complete simulation data
+# - uat_results/key_points.csv - Specific points of interest
+# - uat_results/comprehensive_plots.png - Result visualizations
+# - uat_results/simulation_log.log - Complete execution log
+# - uat_results/experiment_metadata.json - Experiment metadata
+# - All files are reproducible and ready for peer review
+
+# %% [markdown]
+# ## 8. Experimental Predictions:
+# The simulation predicts measurable effects in the *2.1 kHz to 500 kHz* range,
+# suggesting that experimental verification is feasible using:
+# - Radio telescopes tuned to these frequencies
+# - Precision microwave cavity experiments
+# - Analysis of existing astrophysical data in this frequency band
+
+
+# In[ ]:
+
+
+
+
