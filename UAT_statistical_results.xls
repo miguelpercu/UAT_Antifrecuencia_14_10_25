@@ -1,0 +1,2 @@
+Normality_Test_DA_pvalue,Normality_Test_DB_pvalue,TTest_Statistic,TTest_pvalue,Significance_DA_over_background,Significance_DB_over_background,Anomalies_DA_count,Anomalies_DB_count,SNR_DA,SNR_DB,Dynamic_Range_DA_dB,Dynamic_Range_DB_dB
+0.0,0.0,144.20634087384613,0.0,86288.46544009239,4420.672456887195,14659,751,5.300717113372157,2.1082611135218037,14.486692551686852,6.478487967042912

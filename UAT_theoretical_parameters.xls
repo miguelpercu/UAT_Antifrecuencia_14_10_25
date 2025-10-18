@@ -1,0 +1,2 @@
+Antifrequency_100kHz_s-1,Transition_Start_kHz,Transition_End_kHz,UAT_Bandwidth_kHz,Optimal_Frequency_kHz,Alpha_Constant,Detector_Temperature_K,Detector_Sensitivity_W_sqrtHz
+-1e-05,2.097,498.7,496.603,100.0,8.67e-06,0.015,2e-23

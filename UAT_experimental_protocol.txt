@@ -1,0 +1,25 @@
+
+RECOMMENDED CONFIGURATION:
+- Frequency range: 2-500 kHz (UAT Region)
+- Sampling rate: >=10 kHz  
+- Acquisition time: >=5 seconds
+- Temperature: <=15 mK (cryogenic)
+- Sensitivity: <=2e-23 W/sqrt(Hz)
+
+DETECTION METHODS:
+1. Radio telescopes: SKA, LOFAR, CHIME
+2. Precision microwave cavities
+3. Cryogenic detectors: CDMS-style
+4. Data re-analysis: pulsars, FRBs
+
+EXPECTED UAT SIGNATURES:
+- D_A: Anomalous pulses (high energy, short duration)
+- D_B: Sustained substrate (low energy, long duration)  
+- Enhancement: 0.1-100% in 2-500 kHz region
+- Non-Gaussianity: p < 0.05 in residuals
+
+VALIDATION CRITERIA:
+- Significance >3sigma over expected background
+- SNR > 2.0 for reliable detection
+- Spectral consistency in UAT region
+- Temporal reproducibility
